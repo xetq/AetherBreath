@@ -1,0 +1,14 @@
+beautifulsoup4==4.15.0
+chromadb==1.5.9
+ddgs==9.16.0
+duckduckgo_search==8.1.1
+openai==3.6.0
+openpyxl==3.1.5
+pypdf==6.16.2
+PyPDF2==3.0.1
+python-dotenv==1.2.3
+python_docx==1.2.0
+PyYAML==6.0.3
+Requests==2.34.2
+tavily_python==0.8.0
+tzdata==2026.3

@@ -1,0 +1,4 @@
+# 网关后端依赖（安装进 agent_webui/venv-gateway，不进项目根 venv）
+# 用法见 agent_webui/README.md
+fastapi>=0.115
+uvicorn>=0.30

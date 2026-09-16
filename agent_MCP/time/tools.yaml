@@ -1,0 +1,41 @@
+# 本文件由 agent_MCP/mcp_sync.py 生成 —— **机器所有，不要手改**（下次同步会覆盖）。
+# station 怎么启动、开不开、超时多少：见同目录的 STATION.md（那是手写的）。
+# 重新生成：venv/Scripts/python agent_MCP/mcp_sync.py --sync time
+station: time
+synced_at: '2026-09-15T18:50:47'
+protocol_version: '2025-06-18'
+tools:
+- name: get_current_time
+  description: Get current time in a specific timezone
+  inputSchema:
+    type: object
+    properties:
+      timezone:
+        type: string
+        description: IANA timezone name (e.g., 'America/New_York', 'Europe/London'). Use 'Asia/Shanghai'
+          as local timezone if no timezone provided by the user.
+    required:
+    - timezone
+- name: convert_time
+  description: Convert time between timezones
+  inputSchema:
+    type: object
+    properties:
+      source_timezone:
+        type: string
+        description: Source IANA timezone name (e.g., 'America/New_York', 'Europe/London'). Use 'Asia/Shanghai'
+          as local timezone if no source timezone provided by the user.
+      time:
+        type: string
+        description: Time to convert in 24-hour format (HH:MM)
+      target_timezone:
+        type: string
+        description: Target IANA timezone name (e.g., 'Asia/Tokyo', 'America/San_Francisco'). Use 'Asia/Shanghai'
+          as local timezone if no target timezone provided by the user.
+    required:
+    - source_timezone
+    - time
+    - target_timezone
+server_info:
+  name: mcp-time
+  version: 1.30.0

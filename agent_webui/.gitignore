@@ -1,0 +1,19 @@
+# ---- Python 网关虚拟环境（按 README 一条命令重建，绝不提交）----
+venv-gateway/
+__pycache__/
+*.py[cod]
+
+# ---- Node 依赖 ----
+frontend/node_modules/
+
+# 注意：frontend/dist/ **故意提交** —— 已构建产物随仓库附带，
+# clone 下来即可直接启动网关（无需 npm install + npm run build）。
+# 改过前端源码后请重新构建并提交：cd frontend && npm install && npm run build
+
+# ---- 运行时产物（本机状态，不属于源码）----
+logs/
+.trash/
+.tmp_*
+.install_*.log
+.install_*.err
+scripts/*.result.json

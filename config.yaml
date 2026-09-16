@@ -1,0 +1,49 @@
+# AetherBreath 项目配置文件
+# 所有路径均相对于项目根目录（PROJECT_ROOT）
+
+project:
+  name: AetherBreath
+
+paths:
+  # 目录结构
+  working_memory: "agent_memory/working_memory"
+  long_memory: "agent_memory/long_memory"
+  soul_file: "agent_memory/long_memory/SOUL.md"
+  agents_file: "agent_memory/long_memory/AGENTS.md"
+  workspace: "agent_workspace"
+  knowledge_base: "agent_knowledge_base"
+  chroma_db: "chroma_db"
+  memory_file: "agent_memory/long_memory/MEMORY.md"
+  skills_dir: "agent_skills"
+  skill_registry: "agent_skills/SKILL_REGISTRY.md"
+  # MCP：station 目录（一个 server = 一个文件夹，**文件夹存在即注册**）
+  mcp_stations: "agent_MCP"
+  # 注册表（MCP_REGISTRY.md，每 station 一行）是**派生值**：永远落在 station 目录里
+  # （`<station 目录>/MCP_REGISTRY.md`），不再单独配。
+
+# MCP 总闸：false = 连注册表与两个元工具都不注入（"MCP 常开"由这里决定）
+mcp:
+  enabled: true
+
+defaults:
+  model: "deepseek-v4-flash"
+  reasoning_effort: "high"
+  thinking_enabled: true
+  max_iterations: 100
+
+# 上下文管理器：原文永不动，压缩只生产「视图」发给模型
+# 设计：agent_workspace/上下文管理器/DESIGN.md ｜ 视图落盘：agent_memory/.condensed_sessions/
+context_manager:
+  enabled: true                    # 2026-09-13 验收通过后开启；改 false 即完全回退到"原文直发"
+  window_tokens: 1000000           # 模型窗口（1M）；model_windows 未命中时用这个
+  trigger_ratio: 0.5               # 用到窗口 50% 触发压缩（或：10 轮防线，token 优先）
+  keep_recent_rounds: 10           # 保护段 = 最近 10 轮（"完整"指语义完整：仍剥 args/思考）
+  keep_recent_thinking_rounds: 3   # 最近 3 轮保留 reasoning_content，其余剥离
+  cooldown_rounds: 2               # 压缩后至少隔 2 轮再压（防抖）
+  clear_tool_args: true            # 工具参数清理为「工具名 + 目的前 N 字」
+  arg_preview_chars: 120
+  tool_result_preview_chars: 200   # 留给将来"折叠段保留前 N 字符"用
+  protect_first_round: true        # 首轮永不折叠
+  absolute_words: ["不要", "必须", "禁止", "不对", "错了", "别再", "停止", "记住"]
+  model_windows:
+    default: 1000000

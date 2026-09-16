@@ -1,0 +1,60 @@
+# ---- 密钥与本地配置（绝不提交） ----
+.env
+*.env
+!.env.example
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.pytest_cache/
+
+# ---- 运行时产物（本机状态，不进仓库） ----
+# 目录本身要留下（clone 即用），只忽略里面的内容
+agent_logs/*
+!agent_logs/.gitkeep
+hf_cache/
+chroma_db/
+agent_memory/working_memory/*
+!agent_memory/working_memory/.gitkeep
+agent_memory/.condensed_sessions/
+agent_tools/network_cache.json
+agent_tools/quota.json
+agent_tools/cache/
+agent_workspace/.tmp_exec/
+*.tmp
+*.log
+
+# ---- 可再生环境（一条命令就能重建）----
+node_modules/
+venv*/
+.venv/
+envs/
+
+# ---- MCP 运行时痕迹（station 本身要提交）----
+agent_MCP/.state/
+agent_MCP/.trash/
+
+# ---- WebUI 运行时状态 ----
+agent_webui/.state/
+agent_webui/logs/
+agent_webui/.trash/
+agent_webui/frontend/node_modules/
+
+# ---- 临时/备份 ----
+*.bak
+*.bak*
+nul
+/nul
+
+# ---- 工作区内容默认不入库 ----
+# agent 的工作区是它干活的现场，产出通常属于本机资产。
+# 想提交某个任务产物时，用 `git add -f` 单独放行，或删掉这两行。
+agent_workspace/*
+!agent_workspace/README.md
+!agent_workspace/.gitkeep
+
+# ---- 知识库语料默认不入库（自己往里喂）----
+agent_knowledge_base/*
+!agent_knowledge_base/README.md
