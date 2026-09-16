@@ -137,7 +137,7 @@ agent_MCP/              MCP 服务站：一个 server = 一个文件夹（含 MC
 agent_workspace/        agent 的工作区（任务按子文件夹隔离）
 agent_knowledge_base/   RAG 知识库语料（.md）
 agent_logs/             会话日志（.jsonl）
-docs/                   设计文档、审计报告、接入教程、测试用例
+docs/                   设计文档与接入教程（MCP 设计、GitHub 接入）；AB自维护文档/ 为自维护记录
 tests/                  回归测试集
 config.yaml             路径与默认值（LLM 三件套以 .env 为准，这里仅兜底）
 .env.example            LLM 配置模板（复制为 .env 填写）
@@ -158,7 +158,7 @@ config.yaml             路径与默认值（LLM 三件套以 .env 为准，这�
 | **中期交互** | `agent/mid_turn.py` | 回合运行中用户可追加交代，随下一批工具返回回灌模型 |
 | **长期记忆** | `agent_memory/long_memory/` | SOUL / AGENTS / MEMORY 三个文件每轮注入；USER.md 作档案 |
 
-设计文档见 [`docs/`](docs/)。
+设计文档见 [`docs/`](docs/)（MCP 设计、GitHub 接入教程）。
 
 ---
 

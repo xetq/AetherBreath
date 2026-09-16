@@ -23,7 +23,7 @@
 - **配置**：`config.yaml` 管路径；`.env` 管 LLM 三件套；主对话 `stream=False`（LLM 无 token 流——WebUI 的"流"是**事件流**：阶段变化/工具调用/文本块，不是逐 token）。
 - **已有 Web 参考**：`subagents/多agent系统/orchestrator.py` —— `http.server` 零依赖 Web UI 先例。
 - **环境**：Python venv 在项目根 `venv/`（含 openai/dotenv/yaml 等，bridge 必须用它才能 import agent）；Node v22 + npm 10 可用（前端工程用）；LLM 走 OpenAI 兼容端点。
-- **愿景**：`建设说明.txt` —— agent 将来是"通用壳 + 可切换垂直模式"。WebUI 要为其预留扩展位。
+- **愿景**：agent 将来是"通用壳 + 可切换垂直模式"。WebUI 要为其预留扩展位。
 
 ## 1. v1 功能范围（主人确认）
 
