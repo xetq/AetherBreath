@@ -2,3 +2,7 @@
 # 用法见 agent_webui/README.md
 fastapi>=0.115
 uvicorn>=0.30
+# 网关进程内要读 YAML：backend/config.py 读 config.yaml，
+# backend/mcp_view.py 会 import agent 侧的 mcp_station（读 STATION.md 的 frontmatter）。
+# 缺了它 MCP 面板会整体报「MCP 模块不可用：No module named 'yaml'」。
+pyyaml>=6.0

@@ -39,6 +39,12 @@ agent_webui/venv-gateway/Scripts/python.exe agent_webui/backend/main.py
 ```
 
 > Windows 上若 `npm` 被 WSL 转发劫持（报 `wsl: <3>InternalError` 之类），改用 `npm.cmd install` / `npm.cmd run build`。
+>
+> **依赖自检**：装完依赖后跑一次
+> `venv-gateway/Scripts/python.exe backend/check_gateway_deps.py`
+> —— 它逐个 import 全部 backend 模块，报出任何缺失的第三方包。
+> **网关能启动 ≠ 依赖齐全**：有些模块只在特定 API 被访问时才 import（例如 MCP 面板），
+> 缺包表现为那个面板整体报错，而不是网关起不来。
 
 ---
 
@@ -174,8 +180,20 @@ WebUI 与命令行版（`python agent/agent.py`）是**两个独立的 AB 进程
 ```bash
 venv-gateway/Scripts/python.exe scripts/regression_p7.py     # 需网关已运行
 ```
+
 真实跑完：多工具时间线 → clarify 提问/答复续跑 → 优雅中断 → 强杀重开续聊（历史恢复），
 结果落 `logs/regression_p7.json`，全 PASS 退出码 0。前端质量门：`npm run typecheck`（strict + noUnusedLocals，当前零错误）。
+
+### 依赖自检（排查「某个面板报不可用」）
+
+```bash
+venv-gateway/Scripts/python.exe backend/check_gateway_deps.py
+```
+
+逐个 import 全部 backend 模块并报出缺失的第三方包。**网关能启动 ≠ 依赖齐全** ——
+部分模块只在特定 API 被访问时才 import（`mcp_view.py` 就是：访问 MCP 面板时才 import
+agent 侧的 `mcp_station`，而它要 `yaml`），缺包会表现为**那个面板整体报错**，网关本身照常运行。
+历史上就漏过 `pyyaml`（`backend/requirements.txt` 曾长期没写它）。
 
 ## 10. 中期交互（「用户交代」）—— 回合跑动中改方向
 
