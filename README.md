@@ -122,6 +122,20 @@ venv/Scripts/python -m pytest tests -q
 
 ---
 
+## 依赖自检
+
+装完依赖后跑一次，确认清单没漏包：
+
+```bash
+venv/Scripts/python check_deps.py
+```
+
+逐个 import 全部 29 个项目模块，任何缺包都会点名报出。
+
+**为什么要它**：清单漏包的症状是**静默失效**而非启动失败 —— 有些依赖只在特定工具被调用时才 import（函数内延迟导入），漏装只会让那个工具默默报错。WebUI 侧另有一份对应检查（网关是独立 venv）：`agent_webui/backend/check_gateway_deps.py`。
+
+---
+
 ## 项目结构
 
 ```
@@ -140,6 +154,7 @@ agent_logs/             会话日志（.jsonl）
 docs/                   设计文档与接入教程（MCP 设计、GitHub 接入）；AB自维护文档/ 为自维护记录
 tests/                  回归测试集
 config.yaml             路径与默认值（LLM 三件套以 .env 为准，这里仅兜底）
+check_deps.py           依赖自检（逐个 import 全部项目模块，验证清单没漏包）
 .env.example            LLM 配置模板（复制为 .env 填写）
 ```
 
@@ -181,9 +196,15 @@ config.yaml             路径与默认值（LLM 三件套以 .env 为准，这�
 先 `webui.bat --setup` 建网关环境；端口默认 8900（用 `AETHER_WEBUI_PORT` 改）。
 Windows 上若 `npm` 被 WSL 劫持（报 `wsl: <3>InternalError`），改用 `npm.cmd`。
 
-**MCP 提示没有 token？**
-`agent_MCP/github/` 需要 `GITHUB_PERSONAL_ACCESS_TOKEN`（写在 `.env`）。
-没有 token 也能握手列工具，但一个都调不动 —— 步骤见 [`docs/MCP-GitHub接入.md`](docs/MCP-GitHub接入.md)。
+**MCP 面板显示某个 station 不可用？**
+每个 station 有自己的**外部前提**，缺了会如实标 `⚠ 不可用`（fail-closed，不会假装能用）：
+
+| station | 需要什么 |
+|---|---|
+| `time` | PATH 上有 `uv`（提供 `uvx`）——首次运行会联网下载 `mcp-server-time` |
+| `github` | ① `github-mcp-server` 二进制放进 PATH；② `.env` 里配 `GITHUB_PERSONAL_ACCESS_TOKEN`（申请步骤见 [`docs/MCP-GitHub接入.md`](docs/MCP-GitHub接入.md)） |
+
+两者都不装也**不影响 AB 本体与 WebUI** —— MCP 是可选的扩展层，没配好的 station 只是不出现在可调用列表里。
 
 **用脚本 / 管道喂输入跑 CLI，需要审批的操作全被拒？**
 这是 **fail-closed 保护**，不是 bug：CLI 审批面板（`ConsolePort`）要求 stdin 是真实终端（TTY）。
