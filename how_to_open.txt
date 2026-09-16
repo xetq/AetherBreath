@@ -1,0 +1,1 @@
+这是作者手写的,你可以在"AetherBreath\agent_webui\webui.bat"打开AB的webui(要先去.env里面配置llm),如果你不喜欢这种方式,叫AB给你写一个也行

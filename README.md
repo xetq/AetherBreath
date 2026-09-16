@@ -1,7 +1,7 @@
 # AetherBreath ☲
 
 一个**可自我成长**的终端 Agent（自研学习项目）：对话连续性、工具调用、并行任务编排、
-审批安全层、长期记忆、技能系统、MCP 集成、以及一套独立 WebUI。
+审批安全层、长期记忆、技能系统、MCP 集成、以及一套独立 WebUI。(目前只是测试项目AB_4.0,0dev)
 
 主对话走 **OpenAI 兼容协议** —— 改 `.env` 就能换任意厂商（DeepSeek / 智谱 GLM / 硅基流动 /
 Kimi / OpenAI / Ollama 本地…），**零代码改动**。
@@ -49,7 +49,7 @@ LLM_MODEL=deepseek-chat
 > `.env` 含密钥，已加入 `.gitignore`，**不要提交**。
 > `thinking` 与 `reasoning_effort` 默认关闭（兼容性最好）；只有目标模型明确支持时再开，否则部分厂商会报 400。
 
-### 3. 首次启动 —— 初始化引导
+### 3. 首次启动 —— 初始化引导(建议查看"AetherBreath\how_to_open.txt")
 
 ```bash
 python agent/agent.py

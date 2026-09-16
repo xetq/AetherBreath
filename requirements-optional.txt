@@ -1,0 +1,9 @@
+# 可选依赖 —— 不装也能跑，只影响对应工具的能力
+#
+# 安装：venv/Scripts/python -m pip install -r requirements-optional.txt
+#
+# 浏览器工具（agent_tools/execute_browser.py）
+#   不装：调用该工具时返回"缺少依赖"提示，其余功能完全不受影响
+#   （execute_browser.py 顶层只 import 标准库，browser_use 是函数内延迟导入）
+browser-use
+playwright

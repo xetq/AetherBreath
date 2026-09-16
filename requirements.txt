@@ -1,14 +1,34 @@
-beautifulsoup4==4.15.0
-chromadb==1.5.9
-ddgs==9.16.0
-duckduckgo_search==8.1.1
+# AetherBreath 运行依赖（CLI + agent 本体 + 工具层）
+#
+# 安装：
+#   python -m venv venv
+#   venv/Scripts/python -m pip install -r requirements.txt
+#
+# 另有：
+#   requirements-dev.txt      回归测试用（pytest）
+#   requirements-optional.txt  可选能力（浏览器工具）
+#   agent_webui/backend/requirements.txt  WebUI 网关（独立 venv-gateway）
+
+# ---- LLM 与配置 ----
 openai==3.6.0
-openpyxl==3.1.5
+python-dotenv==1.2.3
+PyYAML==6.0.3
+
+# ---- 工具层：文档读写（file_read）----
+python-docx==1.2.0
 pypdf==6.16.2
 PyPDF2==3.0.1
-python-dotenv==1.2.3
-python_docx==1.2.0
-PyYAML==6.0.3
-Requests==2.34.2
-tavily_python==0.8.0
+openpyxl==3.1.5
+
+# ---- 工具层：网络与搜索（search / web_reader / web_extract）----
+requests==2.34.2
+beautifulsoup4==4.15.0
+ddgs==9.16.0
+duckduckgo_search==8.1.1
+
+# ---- 工具层：知识库 RAG（rag_query）----
+chromadb==1.5.9
+
+# ---- 时区数据 ----
+# Windows 不自带 IANA 时区库，agent_tools/time_weather.py 的 zoneinfo.ZoneInfo 需要它
 tzdata==2026.3
