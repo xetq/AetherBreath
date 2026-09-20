@@ -15,8 +15,12 @@
 跑法：venv/Scripts/python -m pytest tests/test_security_hardening.py -q
       （也可直接 python tests/test_security_hardening.py，自带汇总）
 """
+import os
 import sys
 from pathlib import Path
+
+# 非 Windows 环境兜底 USERPROFILE，使系统盘判定测试在各平台表现一致
+os.environ.setdefault("USERPROFILE", "C:/Users/testuser")
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
